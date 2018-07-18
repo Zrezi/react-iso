@@ -1,11 +1,5 @@
-import mysql from 'mysql'
+import { Core } from '../database/core';
 
-var pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'node',
-    port: '3307'
-})
+let DatabaseCore = new Core("localhost", "root", "root", "node", "3307");
 
-export default pool
+export { DatabaseCore };

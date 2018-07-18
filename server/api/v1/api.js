@@ -1,73 +1,40 @@
-import express from 'express';
-import pool from '../APIController';
+import express        from 'express';
+import { isDefined }  from '../APIController';
+import * as JWT       from 'jsonwebtoken';
+
+// Import API endpoint handlers
+import users          from './users';
+import passwordreset  from './passwordreset';
+import token          from './token';
+
+// Instantiate express's router
 const api = express.Router();
 
-function _isDefined(o) { return (typeof o !== 'undefined') }
-
-api.get('/users', (req, res) => {
-    pool.getConnection((err, conn) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        let sql = 'SELECT * FROM users WHERE 1';
-        conn.query(sql, [], (err, results) => {
-            conn.release();
-            if (err) {
-                console.log(err);
-                return;
-            }
-            res.send(results);
-        })
-    })
+// Middleware to automatically set the content type header
+api.use((req, res, next) => {
+    res.header('Content-Type', 'application/json');
+    next();
 });
 
-api.get('/user/:id', (req, res) => {
-    pool.getConnection((err, conn) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        let sql = `SELECT * FROM users WHERE id=${req.params.id}`;
-        conn.query(sql, (err, results) => {
-            conn.release();
-            if (err) {
-                console.log(err);
-                return;
-            }
-            res.send(results);
-        });
+// Assign API endpoint handlers
+api.use('/users', users);
+api.use('/passwordreset', passwordreset);
+api.use('/token', token);
+
+api.get('/protected', (req, res) => {
+    if (!isDefined(req.query.jwt)) {
+        return res.send({ err: "No JWT" });
+    }
+    JWT.verify(req.query.jwt, 'secret_key', (err, decoded) => {
+        if (err) { return res.send({ err }); }
+        return res.send({ token: decoded });
     });
 });
 
-api.post('/user', (req, res) => {
-    let query = req.query;
-    if (!_isDefined(query.username)) {
-        return res.send({ error: "No username" });
-    }
-    if (!_isDefined(query.email)) {
-        return res.send({ error: "No email" });
-    }
-    if (!_isDefined(query.password)) {
-        return res.send({ error: "No password" });
-    }
-    if (!_isDefined(query.passwordConfirmation)) {
-        return res.send({ error: "No passwordConfirmation" });
-    }
-    pool.getConnection((err, conn) => {
-        if (err) {
-            return;
-        }
-        //let sql = `INSERT INTO users (username, email, password) VALUES (${query.username}, ${query.email}, ${query.password})`;
-        let sql = `INSERT INTO users (name) VALUES ('${query.username}')`;
-        conn.query(sql, (err, results) => {
-            conn.release();
-            if (err) {
-                console.log(err);
-                return res.send({ error: "Invalid..." });
-            }
-            return res.send(results);
-        });
+// Catch all for any endpoints that aren't already caught
+api.get('*', (req, res) => {
+    res.send({
+        err: "Invalid endpoint"
     });
 });
 
