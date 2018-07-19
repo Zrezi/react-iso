@@ -1,8 +1,8 @@
-import * as mysql from 'mysql';
-import Promise from 'bluebird';
+import * as mysql  from 'mysql';
+//import Promise     from 'bluebird';
 
-Promise.promisifyAll(mysql.createConnection.prototype);
-Promise.promisifyAll(mysql.createPool.prototype);
+/*Promise.promisifyAll(mysql.createConnection.prototype);
+Promise.promisifyAll(mysql.createPool.prototype);*/
 
 class Core {
     constructor(host, user, password, database, port) {

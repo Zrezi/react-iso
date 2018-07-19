@@ -1,5 +1,5 @@
-import express from 'express';
-import { DatabaseCore } from '../APIController';
+import express           from 'express';
+import { DatabaseCore }  from '../APIController';
 
 // Instantiate express's router
 const api = express.Router();

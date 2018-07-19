@@ -1,9 +1,9 @@
-import React from 'react'
-import TopNav from './TopNav'
+import React   from 'react';
+import TopNav  from './TopNav';
 
 class About extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 	}
 	render() {
 		return (
@@ -13,8 +13,8 @@ class About extends React.Component {
 					<h1>About Page</h1>
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
-export default About
+export default About;

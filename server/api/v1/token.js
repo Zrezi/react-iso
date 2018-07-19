@@ -1,13 +1,13 @@
-import express from 'express';
-import { DatabaseCore } from '../APIController';
-import { JWT_SETTINGS, hash } from '../../encryption';
-import * as JWT from 'jsonwebtoken';
+import express                 from 'express';
+import { DatabaseCore }        from '../APIController';
+import { JWT_SETTINGS, hash }  from '../../encryption';
+import * as JWT                from 'jsonwebtoken';
 
 // Instantiate express's router
-const api = express.Router();
+const TokenAPI = express.Router();
 
 // POST ~/api/v1/token
-api.post('/', async (req, res) => {
+TokenAPI.post('/', async (req, res) => {
 
     // Make sure that there was a username and password passed in
     if (!(req.query.username)) {
@@ -26,7 +26,7 @@ api.post('/', async (req, res) => {
     // Ensure that there was a valid user
     if (results.length != 1) {
         return res.send({
-            err: "Invalid credentials"
+            error: "Invalid credentials"
         });
     }
 
@@ -36,7 +36,7 @@ api.post('/', async (req, res) => {
     // Hash the givne password an compare it with the stored password
     if (user.password != hash(req.query.password)) {
         return res.send({
-            err: "Invalid password"
+            error: "Invalid password"
         });
     }
 
@@ -49,7 +49,7 @@ api.post('/', async (req, res) => {
     });
 
     // Return the token
-    return res.send([{ token }]);
+    return res.send({ token });
 });
 
-export default api;
+export { TokenAPI };

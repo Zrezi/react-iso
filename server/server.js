@@ -1,14 +1,10 @@
-// Set up ======================================================================
-// get all the tools we need
-import express from 'express';
-import http from 'http';
-import logger from 'morgan';
-import path from 'path';
-import apiVersion1 from './api/api1';
-
-import apiV1 from './api/v1/api'
-
-import renderRouterMiddleware from '../iso-middleware/renderRoute';
+import express                 from 'express';
+import http                    from 'http';
+import logger                  from 'morgan';
+import path                    from 'path';
+import apiVersion1             from './api/api1';
+import apiV1                   from './api/v1/api'
+import renderRouterMiddleware  from '../iso-middleware/renderRoute';
 
 require('dotenv').config();
 
@@ -32,4 +28,4 @@ http.createServer(app).listen(app.get('port'), () => {
   console.log(`Express server started at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
 
-module.exports = app;
+export default app;

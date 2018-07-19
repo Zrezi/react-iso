@@ -1,4 +1,4 @@
-import { Core } from '../database/core';
+import { Core }  from '../database/core';
 
 let DatabaseCore = new Core("localhost", "root", "root", "node", "3307");
 

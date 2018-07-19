@@ -1,15 +1,17 @@
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
-import { matchRoutes } from 'react-router-config';
-import routes from '../shared/routes';
-import HTML from '../shared/components/HTML';
-import App from '../shared/App';
+import React               from 'react';
+import { renderToString }  from 'react-dom/server';
+import { StaticRouter }    from 'react-router-dom';
+import { matchRoutes }     from 'react-router-config';
+import routes              from '../shared/routes';
+import HTML                from '../shared/components/HTML';
+import App                 from '../shared/App';
 
 export default function renderRoute(req, res) {
+
+	// find all routes that match the requested url
 	const branch = matchRoutes(routes, req.url)
 	const promises = []
-
+	
 	branch.forEach(({ route, match }) => {
 		if (route.loadData) {
 			promises.push(route.loadData(match))

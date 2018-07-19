@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React     from 'react';
+import { Link }  from 'react-router-dom';
 
 export default class TopNav extends React.Component {
 	render() {
-		console.log('props.route.path = '+ this.props.route.path)
-		let selected = ''
+		console.log('props.route.path = '+ this.props.route.path);
+		let selected = '';
 		if (typeof this.props.route.path === 'string') {
-			selected = this.props.route.path.split('/').pop()
+			selected = this.props.route.path.split('/').pop();
 		}
 		return (
 			<nav>
@@ -25,6 +25,6 @@ export default class TopNav extends React.Component {
 					</ul>
 				</div>
 			</nav>
-		)
+		);
 	}
 }

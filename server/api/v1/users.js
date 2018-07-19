@@ -1,6 +1,7 @@
-import express from 'express';
-import { DatabaseCore } from '../APIController';
-import { hash } from '../../encryption';
+import express           from 'express';
+import { DatabaseCore }  from '../APIController';
+import { hash }          from '../../encryption';
+
 const api = express.Router();
 
 // Get all users

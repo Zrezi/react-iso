@@ -1,8 +1,10 @@
-import React from 'react';
-import Main from './Main';
+import React  from 'react';
+import Main   from './Main';
 
-const Root = ({ route }) => (
-  <Main routes={route.routes} />
-)
+const Root = ({ route }) => {
+	return (
+		<Main routes={route.routes} />
+	);
+};
 
 export default Root;

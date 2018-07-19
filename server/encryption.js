@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { createHash }  from 'crypto';
 
 const JWT_SETTINGS = {
     key: 'plaintext',

@@ -2,7 +2,7 @@ import React from 'react';
 
 class HTML extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 	}
 	render() {
 		return (
@@ -12,12 +12,12 @@ class HTML extends React.Component {
 					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
 				</head>
 				<body>
-					<div id="root" dangerouslySetInnerHTML={{ __html: this.props.html }} />
+					<div id="root" dangerouslySetInnerHTML={{__html: this.props.html}}></div>
 					<script type="application/javascript" src="/main.bundle.js" />
 				</body>
 			</html>
-		)
+		);
 	}
 }
 
-export default HTML
+export default HTML;
